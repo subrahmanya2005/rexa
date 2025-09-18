@@ -34,7 +34,7 @@ export async function GET(request: Request, { params }: RouteParams) {
       { success: true, product: document, related },
       { status: 200 }
     );
-  } catch (error: unknown) {
+  } catch (error: any) {
     if (error instanceof Error) {
       return NextResponse.json(
         { success: false, error: error.message },
