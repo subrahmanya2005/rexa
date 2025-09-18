@@ -28,16 +28,22 @@ export async function GET(request: Request, { params }: RouteParams) {
       category: document.category,
       _id: { $ne: id },
     });
-console.log("Related products:", related);
-console.log("Current product:", document);
+
     // 3️⃣ Return both
     return NextResponse.json(
       { success: true, product: document, related },
       { status: 200 }
     );
-  } catch (error: any) {
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return NextResponse.json(
+        { success: false, error: error.message },
+        { status: 500 }
+      );
+    }
+
     return NextResponse.json(
-      { success: false, error: error.message },
+      { success: false, error: "Unknown server error" },
       { status: 500 }
     );
   }

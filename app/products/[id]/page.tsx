@@ -3,12 +3,22 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
+interface Product {
+  _id: string;
+  name: string;
+  description: string;
+  price: number;
+  image: string;
+  category: string;
+}
+
 
 export default function ProductDetail() {
   const { id } = useParams<{ id: string }>();
   const [loading, setLoading] = useState(false);
-  const [product, setProduct] = useState<any>(null);
-  const [related, setRelated] = useState<any[]>([]);
+  const [product, setProduct] = useState<Product | null>(null);
+  const [related, setRelated] = useState<Product[]>([]);
+  
   const router = useRouter();
 
   useEffect(() => {
@@ -85,7 +95,8 @@ export default function ProductDetail() {
                     ₹{product.price}
                   </span>
                   <span className="text-lg text-gray-500 line-through">
-                    ₹{(parseFloat(product.price) * 1.2).toFixed(2)}
+                  ₹{(product.price * 1.2).toFixed(2)}
+
                   </span>
                 </div>
               </div>
@@ -128,61 +139,72 @@ export default function ProductDetail() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8">
-            {related.map((product) => (
-              <div
-                key={product.id}
-                className="group cursor-pointer bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100"
-                onClick={() => handleProductClick(product._id)}
-              >
-                <div className="relative aspect-square overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200">
-                  <img
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
-                    src={product.image}
-                    alt={product.name}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  
-                  {/* Price badge */}
-                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1 shadow-lg">
-                    <span className="text-sm font-bold text-gray-900">
-                      ₹{product.price}
-                    </span>
-                  </div>
-                </div>
+  {related.map((product) => (
+    <div
+      key={product._id} // ✅ use _id instead of id
+      className="group cursor-pointer bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100"
+      onClick={() => handleProductClick(product._id)}
+    >
+      <div className="relative aspect-square overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200">
+        <img
+          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
+          src={product.image}
+          alt={product.name}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
-                <div className="p-6 space-y-3">
-                  <h3 className="font-bold text-gray-900 text-lg group-hover:text-blue-600 transition-colors duration-300 line-clamp-1">
-                    {product.name}
-                  </h3>
-                  
-                  <p className="text-gray-600 text-sm leading-relaxed line-clamp-2">
-                    {product.description}
-                  </p>
-                  
-                  <div className="flex items-center justify-between pt-2">
-                    <div className="flex items-center space-x-1">
-                      {[...Array(5)].map((_, i) => (
-                        <svg
-                          key={i}
-                          className="w-4 h-4 text-yellow-400 fill-current"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                        </svg>
-                      ))}
-                      <span className="text-xs text-gray-500 ml-2">(4.8)</span>
-                    </div>
-                    
-                    <div className="text-blue-600 group-hover:translate-x-1 transition-transform duration-300">
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-              </div>
+        {/* Price badge */}
+        <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1 shadow-lg">
+          <span className="text-sm font-bold text-gray-900">
+            ₹{product.price}
+          </span>
+        </div>
+      </div>
+
+      <div className="p-6 space-y-3">
+        <h3 className="font-bold text-gray-900 text-lg group-hover:text-blue-600 transition-colors duration-300 line-clamp-1">
+          {product.name}
+        </h3>
+
+        <p className="text-gray-600 text-sm leading-relaxed line-clamp-2">
+          {product.description}
+        </p>
+
+        <div className="flex items-center justify-between pt-2">
+          <div className="flex items-center space-x-1">
+            {[...Array(5)].map((_, i) => (
+              <svg
+                key={i}
+                className="w-4 h-4 text-yellow-400 fill-current"
+                viewBox="0 0 24 24"
+              >
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+              </svg>
             ))}
+            <span className="text-xs text-gray-500 ml-2">(4.8)</span>
           </div>
+
+          <div className="text-blue-600 group-hover:translate-x-1 transition-transform duration-300">
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  ))}
+</div>
+
         </div>
       </section>
     </div>

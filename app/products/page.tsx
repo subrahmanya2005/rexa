@@ -58,31 +58,31 @@ const router = useRouter()
   // Filter products based on search, category, and price
   useEffect(() => {
     let filtered = [...products];
-
+  
     // Filter by search term
     if (searchTerm) {
-      filtered = filtered.filter(
-        (product) =>
-          product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          product.description.toLowerCase().includes(searchTerm.toLowerCase())
+      filtered = filtered.filter((product) =>
+        product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        product.description.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
-
+  
     // Filter by category
     if (selectedCategory !== "all") {
       filtered = filtered.filter(
         (product) => product.category === selectedCategory
       );
     }
-
+  
     // Filter by price range
     filtered = filtered.filter(
       (product) =>
         product.price >= priceRange.min && product.price <= priceRange.max
     );
-
+  
     setFilteredProducts(filtered);
   }, [searchTerm, selectedCategory, priceRange, products]);
+  
 
   // Handle search
   const handleSearch = () => {
