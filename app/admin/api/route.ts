@@ -19,11 +19,18 @@ export async function POST(req: Request) {
     const price = formData.get("price") as string;
     const file = formData.get("image") as File | null;
 
+    if (!file) {
+      return new Response(
+        JSON.stringify({ error: "No image file provided" }),
+        { status: 400 }
+      );
+    }
+
     console.log(name, category, price, file);
 
-    // Upload image with type assertion
+    // Upload image
     const uploadResult = await uploadImage(file, "next-js image gallery");
-    const data = uploadResult as UploadImageResponse | null;
+    const data = uploadResult as UploadImageResponse;
 
     const image_url = data?.secure_url;
     console.log("Uploaded image URL:", image_url);
