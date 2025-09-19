@@ -3,12 +3,9 @@ import connectDB from "@/libs/db";
 import Data from "@/libs/models";
 
 // Update a document (PUT /admin/api/[id])
-export async function PUT(
-  request: Request,
-  context: { params: { id: string } }
-) {
+export async function PUT(request: Request, context: any) {
   try {
-    const { id } = context.params;
+    const id = context.params.id;
 
     if (!id) {
       return NextResponse.json(
@@ -41,12 +38,9 @@ export async function PUT(
 }
 
 // Delete a document (DELETE /admin/api/[id])
-export async function DELETE(
-  _request: Request,
-  context: { params: { id: string } }
-) {
+export async function DELETE(_request: Request, context: any) {
   try {
-    const { id } = context.params;
+    const id = context.params.id;
 
     if (!id) {
       return NextResponse.json(
