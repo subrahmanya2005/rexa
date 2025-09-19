@@ -61,11 +61,12 @@ const router = useRouter()
   
     // Filter by search term
     if (searchTerm) {
-      filtered = filtered.filter((product) =>
-        product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        product.description.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    }
+  filtered = filtered.filter((product) =>
+    (product.name?.toLowerCase() ?? "").includes(searchTerm.toLowerCase()) ||
+    (product.description?.toLowerCase() ?? "").includes(searchTerm.toLowerCase())
+  );
+}
+
   
     // Filter by category
     if (selectedCategory !== "all") {
