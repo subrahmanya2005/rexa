@@ -2,19 +2,23 @@ import { NextResponse } from "next/server";
 import connectDB from "@/libs/db";
 import Data from "@/libs/models";
 
-interface RouteParams {
-  params: { id: string };
-}
-
-export async function GET(_request: Request, { params }: RouteParams) {
+// GET /products/api/[id]
+export async function GET(_request: Request, context: any) {
   try {
-    await connectDB();
-
-    const { id } = params;
+    const id = context.params.id;
     console.log("id from API route:", id);
 
+    if (!id) {
+      return NextResponse.json(
+        { success: false, error: "Missing id parameter" },
+        { status: 400 }
+      );
+    }
+
+    await connectDB();
+
     // 1️⃣ Find current product
-    const document = await Data.findOne({ _id: id });
+    const document = await Data.findById(id);
 
     if (!document) {
       return NextResponse.json(
@@ -23,7 +27,7 @@ export async function GET(_request: Request, { params }: RouteParams) {
       );
     }
 
-    // 2️⃣ Find related products in the same category (exclude current product)
+    // 2️⃣ Find related products in the same category (exclude current)
     const related = await Data.find({
       category: document.category,
       _id: { $ne: id },
