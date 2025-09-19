@@ -5,10 +5,11 @@ import Data from "@/libs/models";
 // Update a document (PUT /admin/api/[id])
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ) {
   try {
-    const { id } = params;
+    const { id } = context.params;
+
     if (!id) {
       return NextResponse.json(
         { success: false, error: "Missing id parameter" },
@@ -35,7 +36,6 @@ export async function PUT(
   } catch (error: unknown) {
     const errMsg =
       error instanceof Error ? error.message : "An unknown error occurred";
-
     return NextResponse.json({ success: false, error: errMsg }, { status: 400 });
   }
 }
@@ -43,10 +43,11 @@ export async function PUT(
 // Delete a document (DELETE /admin/api/[id])
 export async function DELETE(
   _request: Request,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ) {
   try {
-    const { id } = params;
+    const { id } = context.params;
+
     if (!id) {
       return NextResponse.json(
         { success: false, error: "Missing id parameter" },
@@ -68,7 +69,6 @@ export async function DELETE(
   } catch (error: unknown) {
     const errMsg =
       error instanceof Error ? error.message : "An unknown error occurred";
-
     return NextResponse.json({ success: false, error: errMsg }, { status: 400 });
   }
 }
