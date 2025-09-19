@@ -2,12 +2,11 @@ import { NextResponse } from "next/server";
 import connectDB from "@/libs/db";
 import Data from "@/libs/models";
 
-type RouteParams = {
-  params: { id: string };
-};
-
 // Update a document (PUT /admin/api/[id])
-export async function PUT(request: Request, { params }: RouteParams) {
+export async function PUT(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
   try {
     const { id } = params;
     if (!id) {
@@ -37,15 +36,15 @@ export async function PUT(request: Request, { params }: RouteParams) {
     const errMsg =
       error instanceof Error ? error.message : "An unknown error occurred";
 
-    return NextResponse.json(
-      { success: false, error: errMsg },
-      { status: 400 }
-    );
+    return NextResponse.json({ success: false, error: errMsg }, { status: 400 });
   }
 }
 
 // Delete a document (DELETE /admin/api/[id])
-export async function DELETE(_request: Request, { params }: RouteParams) {
+export async function DELETE(
+  _request: Request,
+  { params }: { params: { id: string } }
+) {
   try {
     const { id } = params;
     if (!id) {
@@ -70,9 +69,6 @@ export async function DELETE(_request: Request, { params }: RouteParams) {
     const errMsg =
       error instanceof Error ? error.message : "An unknown error occurred";
 
-    return NextResponse.json(
-      { success: false, error: errMsg },
-      { status: 400 }
-    );
+    return NextResponse.json({ success: false, error: errMsg }, { status: 400 });
   }
 }
