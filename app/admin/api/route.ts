@@ -36,7 +36,7 @@ export async function POST(req: Request) {
     return new Response(JSON.stringify({ message: "Data saved successfully" }), {
       status: 200,
     });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error(error);
     return new Response(JSON.stringify({ error: "Failed to save data" }), {
       status: 500,
@@ -44,21 +44,7 @@ export async function POST(req: Request) {
   }
 }
 
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
-  const { id } = params;
-  try {
-    const deleted = await Data.findByIdAndDelete(id);
 
-    if (!deleted) {
-      return NextResponse.json({ error: "Product not found" }, { status: 404 });
-    }
-
-    return NextResponse.json({ message: "Product deleted successfully" }, { status: 200 });
-  } catch (error) {
-    console.error(error);
-    return NextResponse.json({ error: "Failed to delete product" }, { status: 500 });
-  }
-}
 
 
 
@@ -70,9 +56,9 @@ export async function GET() {
 
     return NextResponse.json({ success: true, data: allData }, { status: 200 });
   }
-  catch (error: any) {
+  catch (error: unknown) {
     return NextResponse.json(
-      { success: false, error: error.message },
+      { success: false, error: error },
       { status: 400 }
     );
   }

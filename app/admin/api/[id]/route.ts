@@ -33,7 +33,7 @@ export async function PUT(request: Request, { params }: RouteParams) {
     }
 
     return NextResponse.json({ success: true, data: updated }, { status: 200 });
-  } catch (error: any) {
+  } catch (error: unknown) {
     return NextResponse.json(
       { success: false, error: error.message },
       { status: 400 }
@@ -63,9 +63,9 @@ export async function DELETE(_request: Request, { params }: RouteParams) {
     }
 
     return NextResponse.json({ success: true, data: deleted }, { status: 200 });
-  } catch (error: any) {
+  } catch (error: unknown) {
     return NextResponse.json(
-      { success: false, error: error.message },
+      { success: false, error: error},
       { status: 400 }
     );
   }
