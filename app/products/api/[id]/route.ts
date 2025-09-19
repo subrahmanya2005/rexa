@@ -6,7 +6,7 @@ interface RouteParams {
   params: { id: string };
 }
 
-export async function GET(request: Request, { params }: RouteParams) {
+export async function GET(_request: Request, { params }: RouteParams) {
   try {
     await connectDB();
 
@@ -34,16 +34,12 @@ export async function GET(request: Request, { params }: RouteParams) {
       { success: true, product: document, related },
       { status: 200 }
     );
-  } catch (error: any) {
-    if (error instanceof Error) {
-      return NextResponse.json(
-        { success: false, error: error.message },
-        { status: 500 }
-      );
-    }
+  } catch (error: unknown) {
+    const errMsg =
+      error instanceof Error ? error.message : "Unknown server error";
 
     return NextResponse.json(
-      { success: false, error: "Unknown server error" },
+      { success: false, error: errMsg },
       { status: 500 }
     );
   }

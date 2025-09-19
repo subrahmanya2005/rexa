@@ -34,8 +34,11 @@ export async function PUT(request: Request, { params }: RouteParams) {
 
     return NextResponse.json({ success: true, data: updated }, { status: 200 });
   } catch (error: unknown) {
+    const errMsg =
+      error instanceof Error ? error.message : "An unknown error occurred";
+
     return NextResponse.json(
-      { success: false, error: error.message },
+      { success: false, error: errMsg },
       { status: 400 }
     );
   }
@@ -64,11 +67,12 @@ export async function DELETE(_request: Request, { params }: RouteParams) {
 
     return NextResponse.json({ success: true, data: deleted }, { status: 200 });
   } catch (error: unknown) {
+    const errMsg =
+      error instanceof Error ? error.message : "An unknown error occurred";
+
     return NextResponse.json(
-      { success: false, error: error},
+      { success: false, error: errMsg },
       { status: 400 }
     );
   }
 }
-
-

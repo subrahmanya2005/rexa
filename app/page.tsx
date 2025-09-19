@@ -1,7 +1,6 @@
 "use client"
 import Link from "next/link";
 import Image from "next/image";
-import Navbar from "@/components/Navbar";
 import AboutUsSection from "@/components/About";
 import TrustedBySection from "@/components/logoCloud";
 import FAQSection from "@/components/Faq";
@@ -11,8 +10,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-import { Pagination, Navigation, Autoplay } from "swiper/modules";
-
+import { Pagination, Autoplay } from "swiper/modules";
 
 export default function Home() {
   return (

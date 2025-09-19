@@ -1,10 +1,10 @@
 "use client";
 import React, { useState, useEffect } from "react";
 // import { Search, Plus, Edit, Trash2, Filter,User } from "lucide-react";
-import { Search, Plus, Edit, Trash2, User, X, Filter } from "lucide-react";
+import { Search, Plus, Edit, Trash2,  X, Filter } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { checkRole } from '@/utils/roles'
-import { redirect } from 'next/navigation'
+
 
 // Types
 interface Product {
@@ -59,30 +59,33 @@ const handleProductClick = (id: string) => {
 
 
  // Fetch products from API (client-only)
-useEffect(() => {
+ useEffect(() => {
   const fetchProducts = async () => {
-    const isAdmin = await checkRole('admin')
-    console.log(isAdmin)
+    const isAdmin = await checkRole("admin");
+    console.log(isAdmin);
     try {
       const response = await fetch(`${ADMIN_API_BASE}/admin/api`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
-        cache: "no-store", // ✅ prevent caching mismatch
+        cache: "no-store",
       });
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const json = await response.json();
+      const json: { success: boolean; data: Product[] } = await response.json();
       setProducts(json.data);
-    } catch (error) {
-      console.error("Error fetching products:", error);
+    } catch (error: unknown) {
+      const errMsg =
+        error instanceof Error ? error.message : "Failed to fetch products";
+      console.error("Error fetching products:", errMsg);
     }
   };
 
   fetchProducts();
 }, []);
+
 
 
   // ✅ Add product
