@@ -21,11 +21,10 @@ export async function POST(req: Request) {
 
     console.log(name, category, price, file);
 
-    // Upload image
-    const data: UploadImageResponse | null = await uploadImage(
-      file,
-      "next-js image gallery"
-    );
+    // Upload image with type assertion
+    const uploadResult = await uploadImage(file, "next-js image gallery");
+    const data = uploadResult as UploadImageResponse | null;
+
     const image_url = data?.secure_url;
     console.log("Uploaded image URL:", image_url);
 
