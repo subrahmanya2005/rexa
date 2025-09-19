@@ -75,7 +75,7 @@ export default function Navbar() {
               </SignInButton>
               <SignUpButton mode="modal">
                 <button className="px-4 py-2 text-sm rounded-md bg-blue-600 text-white hover:bg-blue-700 transition-colors">
-                  Sign Up
+                  Sign Upp
                 </button>
               </SignUpButton>
             </SignedOut>
