@@ -4,18 +4,28 @@ import React, { useState, useEffect } from "react";
 import { Search, Filter, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 
+// Define Product type
+interface Product {
+  _id: string;
+  name: string;
+  description: string;
+  price: number;
+  image: string;
+  category: string;
+}
+
 export default function App() {
-  const [products, setProducts] = useState([]);
-  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [priceRange, setPriceRange] = useState({ min: 0, max: 50000 });
   const [showFilters, setShowFilters] = useState(false);
-const router = useRouter()
 
-  // Categories for filter
+  const router = useRouter();
+
   const categories = [
     "all",
     "shoes",
@@ -30,17 +40,12 @@ const router = useRouter()
     const fetchProducts = async () => {
       try {
         setLoading(true);
-        // Replace with your actual API endpoint
         const response = await fetch("/products/api", {
           method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
         });
 
-        if (!response.ok) {
-          throw new Error("Failed to fetch products");
-        }
+        if (!response.ok) throw new Error("Failed to fetch products");
 
         const data = await response.json();
         setProducts(data.data);
@@ -51,59 +56,46 @@ const router = useRouter()
         setLoading(false);
       }
     };
-
     fetchProducts();
   }, []);
 
-  // Filter products based on search, category, and price
+  // Filter products
   useEffect(() => {
     let filtered = [...products];
-  
-    // Filter by search term
-    if (searchTerm) {
-  filtered = filtered.filter((product) =>
-    (product.name?.toLowerCase() ?? "").includes(searchTerm.toLowerCase()) ||
-    (product.description?.toLowerCase() ?? "").includes(searchTerm.toLowerCase())
-  );
-}
 
-  
-    // Filter by category
+    if (searchTerm) {
+      filtered = filtered.filter(
+        (product) =>
+          product.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          product.description?.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+
     if (selectedCategory !== "all") {
       filtered = filtered.filter(
         (product) => product.category === selectedCategory
       );
     }
-  
-    // Filter by price range
+
     filtered = filtered.filter(
-      (product) =>
-        product.price >= priceRange.min && product.price <= priceRange.max
+      (product) => product.price >= priceRange.min && product.price <= priceRange.max
     );
-  
+
     setFilteredProducts(filtered);
   }, [searchTerm, selectedCategory, priceRange, products]);
-  
 
-  // Handle search
-  const handleSearch = () => {
-    // Search is already handled by useEffect
-  };
-    const handleProductClick = (id: string) => {
+  const handleProductClick = (id: string) => {
     router.push(`/products/${id}`);
   };
 
-  // Format price in Indian Rupees
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('en-IN', {
-      style: 'currency',
-      currency: 'INR',
+  const formatPrice = (price: number) =>
+    new Intl.NumberFormat("en-IN", {
+      style: "currency",
+      currency: "INR",
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     }).format(price);
-  };
 
-  // Loading state
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
@@ -115,7 +107,6 @@ const router = useRouter()
     );
   }
 
-  // Error state
   if (error && products.length === 0) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
@@ -139,26 +130,18 @@ const router = useRouter()
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <h1 className="text-2xl font-bold text-gray-900">REXA Store</h1>
-
-            {/* Search Bar */}
             <div className="flex-1 max-w-lg mx-8">
-  <div className="relative">
-    <input
-      type="text"
-      value={searchTerm}
-      onChange={(e) => setSearchTerm(e.target.value)}
-      onKeyPress={(e) => e.key === "Enter" && handleSearch()}
-      placeholder="Search products..."  
-      className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg 
-                 text-gray-800 placeholder-gray-500 
-                 focus:outline-none focus:ring-2 focus:ring-blue-500"
-    />
-    <Search className="absolute left-3 top-2.5 h-5 w-5 text-gray-500 pointer-events-none" />
-  </div>
-</div>
-
-
-            {/* Filter Toggle Button (Mobile) */}
+              <div className="relative">
+                <input
+                  type="text"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  placeholder="Search products..."
+                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <Search className="absolute left-3 top-2.5 h-5 w-5 text-gray-500 pointer-events-none" />
+              </div>
+            </div>
             <button
               onClick={() => setShowFilters(!showFilters)}
               className="lg:hidden p-2 rounded-lg hover:bg-gray-100"
@@ -171,7 +154,7 @@ const router = useRouter()
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex gap-8">
-          {/* Filters Sidebar */}
+          {/* Sidebar filters */}
           <aside
             className={`${
               showFilters
@@ -180,7 +163,6 @@ const router = useRouter()
             } lg:w-64`}
           >
             <div className="p-4 lg:p-0">
-              {/* Mobile Close Button */}
               <div className="lg:hidden flex justify-between items-center mb-4">
                 <h2 className="text-lg font-semibold">Filters</h2>
                 <button
@@ -191,17 +173,13 @@ const router = useRouter()
                 </button>
               </div>
 
-              {/* Category Filter */}
               <div className="mb-6">
                 <h3 className="text-sm font-semibold text-gray-900 mb-3">
                   Category
                 </h3>
                 <div className="space-y-2">
                   {categories.map((category) => (
-                    <div
-                      key={category}
-                      className="flex items-center cursor-pointer"
-                    >
+                    <div key={category} className="flex items-center cursor-pointer">
                       <input
                         type="radio"
                         name="category"
@@ -221,7 +199,6 @@ const router = useRouter()
                 </div>
               </div>
 
-              {/* Price Range Filter */}
               <div className="mb-6">
                 <h3 className="text-sm font-semibold text-gray-900 mb-3">
                   Price Range
@@ -229,7 +206,7 @@ const router = useRouter()
                 <div className="space-y-3">
                   <div>
                     <div className="text-xs text-gray-600 mb-1">
-                      Min Price: {formatPrice(priceRange.min)}
+                      Min: {formatPrice(priceRange.min)}
                     </div>
                     <input
                       type="range"
@@ -237,17 +214,14 @@ const router = useRouter()
                       max="10000"
                       value={priceRange.min}
                       onChange={(e) =>
-                        setPriceRange({
-                          ...priceRange,
-                          min: parseInt(e.target.value),
-                        })
+                        setPriceRange({ ...priceRange, min: parseInt(e.target.value) })
                       }
                       className="w-full"
                     />
                   </div>
                   <div>
                     <div className="text-xs text-gray-600 mb-1">
-                      Max Price: {formatPrice(priceRange.max)}
+                      Max: {formatPrice(priceRange.max)}
                     </div>
                     <input
                       type="range"
@@ -255,25 +229,14 @@ const router = useRouter()
                       max="50000"
                       value={priceRange.max}
                       onChange={(e) =>
-                        setPriceRange({
-                          ...priceRange,
-                          max: parseInt(e.target.value),
-                        })
+                        setPriceRange({ ...priceRange, max: parseInt(e.target.value) })
                       }
                       className="w-full"
                     />
                   </div>
                 </div>
-                
-                {/* Price Range Display */}
-                <div className="mt-3 p-3 bg-blue-50 rounded-lg">
-                  <div className="text-sm font-medium text-blue-900">
-                    Selected Range: {formatPrice(priceRange.min)} - {formatPrice(priceRange.max)}
-                  </div>
-                </div>
               </div>
 
-              {/* Clear Filters Button */}
               <button
                 onClick={() => {
                   setSelectedCategory("all");
@@ -287,17 +250,8 @@ const router = useRouter()
             </div>
           </aside>
 
-          {/* Products Grid */}
+          {/* Products */}
           <main className="flex-1">
-            <div className="mb-4 flex justify-between items-center">
-              <p className="text-sm text-gray-600">
-                Showing {filteredProducts.length} of {products.length} products
-              </p>
-              <div className="text-sm text-gray-500">
-                Price range: {formatPrice(priceRange.min)} - {formatPrice(priceRange.max)}
-              </div>
-            </div>
-
             {filteredProducts.length === 0 ? (
               <div className="text-center py-12">
                 <p className="text-gray-500">
@@ -318,12 +272,11 @@ const router = useRouter()
                         alt={product.name}
                         className="w-full h-48 object-cover rounded-t-lg"
                         onError={(e) => {
-                          const target = e.target as HTMLImageElement;
-                          target.src = "https://placehold.co/300x300?text=No+Image";
+                          (e.target as HTMLImageElement).src =
+                            "https://placehold.co/300x300?text=No+Image";
                         }}
                       />
                     </div>
-
                     <div className="p-4">
                       <div className="flex items-start justify-between mb-2">
                         <h3 className="font-semibold text-gray-900 flex-1">
@@ -333,31 +286,13 @@ const router = useRouter()
                           {product.category}
                         </span>
                       </div>
-                      
                       <p className="text-xs text-gray-500 mb-2 line-clamp-2">
                         {product.description}
                       </p>
-
-                      <div className="flex items-center mb-2">
-                        {[...Array(5)].map((_, i) => (
-                          <span key={i} className="text-yellow-400 text-sm">
-                            ★
-                          </span>
-                        ))}
-                        <span className="text-xs text-gray-500 ml-1">
-                          (4.5)
-                        </span>
-                      </div>
-
                       <div className="flex items-center justify-between">
-                        <div className="flex-1">
-                          <span className="text-xl font-bold text-green-600">
-                            {formatPrice(product.price)}
-                          </span>
-                          <div className="text-xs text-gray-500">
-                            incl. of all taxes
-                          </div>
-                        </div>
+                        <span className="text-xl font-bold text-green-600">
+                          {formatPrice(product.price)}
+                        </span>
                       </div>
                     </div>
                   </div>
