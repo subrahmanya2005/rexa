@@ -87,7 +87,7 @@ const AboutUsSection: React.FC = () => {
         {/* Image Section */}
         <div className="relative p-4">
           <Image
-            src="/one.jpg"
+            src="/about.jpg"
             alt="About Us"
             width={800}
             height={600}
