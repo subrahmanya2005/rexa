@@ -3,6 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { checkRole } from '@/utils/roles'
+import { redirect } from 'next/navigation'
 import {
   SignInButton,
   SignUpButton,
@@ -21,6 +23,7 @@ export default function Navbar() {
     { name: "Testimonials", href: "/testimonials" },
     { name: "Contact", href: "/contact" },
   ];
+  
 
   return (
     <nav className="bg-white border-b border-gray-200">

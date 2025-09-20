@@ -23,7 +23,7 @@ interface Product {
 
 
 // API Base
-const ADMIN_API_BASE = "http://localhost:3000";
+// const ADMIN_API_BASE = "http://localhost:3000";
 
 const categories = [
   "shoes",
@@ -64,7 +64,7 @@ const handleProductClick = (id: string) => {
     const isAdmin = await checkRole("admin");
     console.log(isAdmin);
     try {
-      const response = await fetch(`${ADMIN_API_BASE}/admin/api`, {
+      const response = await fetch("/admin/api", {
         method: "GET",
         headers: { "Content-Type": "application/json" },
         cache: "no-store",
@@ -99,7 +99,7 @@ const handleProductClick = (id: string) => {
     data.append("price", String(formData.price));
     data.append("image", file);
 
-    const res = await fetch(`${ADMIN_API_BASE}/admin/api`, {
+    const res = await fetch("/admin/api", {
       method: "POST",
       body: data,
     });
@@ -114,7 +114,7 @@ const handleProductClick = (id: string) => {
   // ✅ Update product
   const updateProduct = async (id: string) => {
     try {
-      const response = await fetch(`${ADMIN_API_BASE}/admin/api/${id}`, {
+      const response = await fetch(`/admin/api/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -144,7 +144,7 @@ const handleProductClick = (id: string) => {
   // ✅ Delete product
   const deleteProductAPI = async (id: string) => {
     try {
-      const response = await fetch(`${ADMIN_API_BASE}/admin/api/${id}`, {
+      const response = await fetch(`$/admin/api/${id}`, {
         method: "DELETE",
       });
 

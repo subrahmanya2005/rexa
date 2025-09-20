@@ -5,23 +5,23 @@ import { Phone, MessageCircle, Instagram, Mail } from "lucide-react";
 
 const Footer: React.FC = () => {
   const handlePhoneClick = () => {
-    window.location.href = "tel:+919876543210"; // Replace with actual number
+    window.location.href = "tel:+91 98454 58637"; // Replace with actual number
   };
 
   const handleWhatsAppClick = () => {
-    const phoneNumber = "919876543210"; // Replace with actual number
+    const phoneNumber = "+91 98454 58637"; // Replace with actual number
     const message = "Hello! I'm interested in your products.";
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
   };
 
   const handleInstagramClick = () => {
-    const instagramUrl = "https://www.instagram.com/rexa_footwear/"; // Replace with actual handle
+    const instagramUrl = "https://www.instagram.com/rexa_puttur"; // Replace with actual handle
     window.open(instagramUrl, '_blank');
   };
 
   const handleEmailClick = () => {
-    window.location.href = "mailto:info@rexa.com"; // Replace with actual email
+    window.location.href = "mailto:mobilecarealthaf@gmail.com"; // Replace with actual email
   };
 
   return (
