@@ -21,7 +21,7 @@ const ContactSection: React.FC = () => {
   };
 
   const handleEmailClick = () => {
-    window.location.href = "mailto:info@rexa.com";
+    window.location.href = "mailto:mobilecarealthaf@gmail.com";
   };
 
   return (
@@ -45,8 +45,8 @@ const ContactSection: React.FC = () => {
               {/* Google Maps */}
               <div className="rounded-lg overflow-hidden shadow-lg">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3891.2519813557396!2d75.19878817488923!3d12.762141187534333!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba4bd82a86804d7%3A0xed913811a43a9a3a!2sREXA%20NONPREMIUM%20OUTLET%20FOOTWEAR!5e0!3m2!1sen!2sin!4v1757863555248!5m2!1sen!2sin"
-                  width="100%"
+                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3891.280249791397!2d75.2030469748892!3d12.76030338753598!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba4bd82b999c1b9%3A0xebca224657c35fe1!2sSangeetha%20Gadgets%20-%20Puttur%20(KRTC%20Bus%20Stand)!5e0!3m2!1sen!2sin!4v1758451477027!5m2!1sen!2sin"
+                 width="100%"
                   height="450"
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
@@ -115,7 +115,7 @@ const ContactSection: React.FC = () => {
                         className="text-gray-600 hover:text-blue-600 transition-colors"
                         type="button"
                       >
-                        info@rexa.com
+                        mobilecarealthaf@gmail.com
                       </button>
                     </div>
                   </div>

@@ -34,6 +34,7 @@ export default function ProductDetail() {
         if (!res.ok) throw new Error("Failed to fetch product");
 
         const data: ProductResponse = await res.json();
+        console.log("Fetched product data:", data);
         setProduct(data.product);
         setRelated(data.related || []);
       } catch (err: unknown) {

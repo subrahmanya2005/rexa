@@ -3,9 +3,11 @@ import connectDB from "@/libs/db";
 import Data from "@/libs/models";
 
 // GET /products/api/[id]
-export async function GET(_request: Request, context: any) {
+
+
+export async function GET(_request: Request, context: { params: { id: string } }) {
   try {
-    const id = context.params.id;
+    const id = context.params.id; // ✅ no await
     console.log("id from API route:", id);
 
     if (!id) {
