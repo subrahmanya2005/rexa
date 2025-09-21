@@ -1,7 +1,9 @@
-export async function GET(
-  _request: Request,
-  context: { params: { id: string } } // ✅ simple object type
-) {
+import { NextResponse } from "next/server";
+import connectDB from "@/libs/db";
+import Data from "@/libs/models";
+
+
+export async function GET(_request: Request, context: any) {
   try {
     const id = context.params.id; // ✅ no await
     console.log("id from API route:", id);
@@ -38,3 +40,4 @@ export async function GET(
     return NextResponse.json({ success: false, error: errMsg }, { status: 500 });
   }
 }
+
