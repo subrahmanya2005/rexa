@@ -4,20 +4,20 @@ import { Instagram, MessageCircle, Phone, Mail, MapPin, Clock } from "lucide-rea
 
 const ContactSection: React.FC = () => {
   const handleWhatsAppClick = () => {
-    const phoneNumber = "7795083518";
+    const phoneNumber = "9845458637";
     const message = "Hello! I'm interested in your products.";
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
   };
 
   const handleInstagramClick = () => {
-    const instagramUsername = "instagram";
+    const instagramUsername = "rexa_puttur";
     const instagramUrl = `https://www.instagram.com/${instagramUsername}/`;
     window.open(instagramUrl, '_blank');
   };
 
   const handlePhoneClick = () => {
-    window.location.href = "tel:+12349434993";
+    window.location.href = "tel:+919845458637";
   };
 
   const handleEmailClick = () => {
