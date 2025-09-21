@@ -144,7 +144,7 @@ const handleProductClick = (id: string) => {
   // ✅ Delete product
   const deleteProductAPI = async (id: string) => {
     try {
-      const response = await fetch(`$/admin/api/${id}`, {
+      const response = await fetch(`/admin/api/${id}`, {
         method: "DELETE",
       });
 
