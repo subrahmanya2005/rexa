@@ -1,29 +1,25 @@
 "use client";
 
+import { useUser, SignInButton, SignUpButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { checkRole } from '@/utils/roles'
-import { redirect } from 'next/navigation'
-import {
-  SignInButton,
-  SignUpButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from "@clerk/nextjs";
 
 export default function Navbar() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { isLoaded, user } = useUser();
   const pathname = usePathname();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  // Base links
   const links = [
     { name: "Home", href: "/" },
     { name: "Products", href: "/products" },
     { name: "Testimonials", href: "/testimonials" },
     { name: "Contact", href: "/contact" },
   ];
-  
+
+  // Admin role check
+  const isAdmin = isLoaded && user?.publicMetadata?.role === "admin";
 
   return (
     <nav className="bg-white border-b border-gray-200">
@@ -45,7 +41,7 @@ export default function Navbar() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex md:items-center md:space-x-8">
-            {links.map((link) => {
+            {[...links, ...(isAdmin ? [{ name: "Admin", href: "/admin" }] : [])].map((link) => {
               const isActive =
                 link.href === "/"
                   ? pathname === link.href
@@ -60,7 +56,6 @@ export default function Navbar() {
                       ? "text-blue-700 bg-blue-100"
                       : "text-gray-900 hover:text-blue-700 hover:bg-gray-100"
                   }`}
-                  aria-current={isActive ? "page" : undefined}
                 >
                   {link.name}
                 </Link>
@@ -87,14 +82,11 @@ export default function Navbar() {
             </SignedIn>
           </div>
 
-          {/* Mobile menu button and auth */}
+          {/* Mobile menu button */}
           <div className="flex items-center space-x-3 md:hidden">
-            {/* Mobile Auth */}
             <SignedIn>
               <UserButton />
             </SignedIn>
-            
-            {/* Mobile menu toggle */}
             <button
               type="button"
               className="inline-flex items-center justify-center p-2 w-10 h-10 text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 transition-colors"
@@ -132,8 +124,7 @@ export default function Navbar() {
           }`}
         >
           <div className="px-2 pt-2 pb-3 space-y-1 bg-gray-50 rounded-lg mt-2">
-            {/* Mobile Navigation Links */}
-            {links.map((link) => {
+            {[...links, ...(isAdmin ? [{ name: "Admin", href: "/admin" }] : [])].map((link) => {
               const isActive =
                 link.href === "/"
                   ? pathname === link.href
@@ -149,14 +140,12 @@ export default function Navbar() {
                       : "text-gray-900 hover:text-blue-700 hover:bg-gray-100"
                   }`}
                   onClick={() => setMobileMenuOpen(false)}
-                  aria-current={isActive ? "page" : undefined}
                 >
                   {link.name}
                 </Link>
               );
             })}
 
-            {/* Mobile Auth Buttons */}
             <SignedOut>
               <div className="pt-4 pb-2 space-y-2 border-t border-gray-200">
                 <SignInButton mode="modal">
