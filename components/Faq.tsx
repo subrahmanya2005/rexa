@@ -44,17 +44,7 @@ const faqItems: FAQItem[] = [
         seasonal trends, and exclusive collections.
       </>
     ),
-  },
-  {
-    question: "What is your return and exchange policy?",
-    answer: (
-      <>
-        Products can be <strong>exchanged or returned</strong> at our store
-        within a set period (usually 7 days), provided they are unused and in
-        their original condition.
-      </>
-    ),
-  },
+  }
 ];
 
 export default function FAQ() {
