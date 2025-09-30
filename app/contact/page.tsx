@@ -45,7 +45,7 @@ const ContactSection: React.FC = () => {
               {/* Google Maps */}
               <div className="rounded-lg overflow-hidden shadow-lg">
                 <iframe
-                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3891.280249791397!2d75.2030469748892!3d12.76030338753598!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba4bd82b999c1b9%3A0xebca224657c35fe1!2sSangeetha%20Gadgets%20-%20Puttur%20(KRTC%20Bus%20Stand)!5e0!3m2!1sen!2sin!4v1758451477027!5m2!1sen!2sin"
+                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3891.2794730704863!2d75.20315207488925!3d12.76035388753595!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba4bdd8795d66f5%3A0x7e54db137f52bfa2!2sRexa%20puttur!5e0!3m2!1sen!2sin!4v1759223395094!5m2!1sen!2sin"
                  width="100%"
                   height="450"
                   loading="lazy"
