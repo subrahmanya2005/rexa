@@ -15,24 +15,24 @@ import { Pagination, Autoplay } from "swiper/modules";
 export default function Home() {
   return (
   <>
-    <section className="bg-white">
+   <section className="bg-white">
   <div className="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
     {/* Text Content */}
-    <div className="mr-auto place-self-center lg:col-span-7 mb-8 lg:mb-0">
-      <h1 className="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl xl:text-6xl">
-        GET YOUR PRODUCT WITH <span className="text-blue-700">50-70%</span>{" "}
-        OFF
+    <div className="mr-auto place-self-center lg:col-span-7 mb-8 lg:mb-0 text-center lg:text-left">
+      <h1 className="max-w-2xl mb-4 text-3xl sm:text-4xl md:text-5xl xl:text-6xl font-extrabold tracking-tight leading-tight text-gray-900">
+        GET YOUR PRODUCT WITH <span className="text-blue-700">50–70%</span> OFF
       </h1>
-      <p className="max-w-2xl mb-6 font-light text-gray-700 lg:mb-8 md:text-lg lg:text-xl font-semibold text-2xl">
+
+      <p className="max-w-2xl mb-6 font-medium text-gray-700 lg:mb-8 text-base sm:text-lg lg:text-xl">
         "Shop the latest collections at unbeatable prices! Discover trendy
-        apparel, footwear, and accessories from top brands—all designed to
-        keep you stylish without breaking the bank. Hurry, these exclusive
-        deals are available for a limited time only!"
+        apparel, footwear, and accessories from top brands—all designed to keep
+        you stylish without breaking the bank. Hurry, these exclusive deals are
+        available for a limited time only!"
       </p>
 
-      <div className="flex flex-col sm:flex-row sm:space-x-4 space-y-3 sm:space-y-0">
+      <div className="flex flex-col sm:flex-row sm:justify-center lg:justify-start sm:space-x-4 space-y-3 sm:space-y-0">
         <Link
-          href={"/products"}
+          href="/products"
           className="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-center text-white rounded-lg bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 transition-colors duration-200"
         >
           View Products
@@ -51,7 +51,7 @@ export default function Home() {
         </Link>
 
         <Link
-          href={"/contact"}
+          href="/contact"
           className="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-center text-blue-700 border border-blue-300 rounded-lg hover:bg-blue-50 focus:ring-4 focus:ring-blue-200 transition-colors duration-200"
         >
           Contact Us
@@ -60,8 +60,8 @@ export default function Home() {
     </div>
 
     {/* Responsive Image Slider */}
-    <div className="lg:col-span-5 flex justify-center">
-      <div className="w-full max-w-sm sm:max-w-md lg:max-w-full">
+    <div className="lg:col-span-5 flex justify-center mt-10 lg:mt-0">
+      <div className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-full">
         <Swiper
           modules={[Pagination, Autoplay]}
           pagination={{ clickable: true }}
@@ -70,66 +70,56 @@ export default function Home() {
           className="w-full h-auto relative rounded-lg overflow-hidden"
         >
           <SwiperSlide>
-            <div className="relative aspect-square">
-              <Image
-                src="/one.jpg"
-                width={500}
-                height={500}
-                alt="Red Nike Sneaker"
-                className="w-full h-full object-cover"
-              />
-            </div>
+            <Image
+              src="/one.jpg"
+              width={500}
+              height={500}
+              alt="Red Nike Sneaker"
+              className="w-full h-auto object-cover"
+            />
           </SwiperSlide>
           <SwiperSlide>
-            <div className="relative aspect-square">
-              <Image
-                src="/img2.png"
-                width={500}
-                height={500}
-                alt="Blue Adidas Sneaker"
-                className="w-full h-full object-cover"
-              />
-            </div>
+            <Image
+              src="/img2.png"
+              width={500}
+              height={500}
+              alt="Blue Adidas Sneaker"
+              className="w-full h-auto object-cover"
+            />
           </SwiperSlide>
           <SwiperSlide>
-            <div className="relative aspect-square">
-              <Image
-                src="/img3.jpg"
-                width={500}
-                height={500}
-                alt="Stylish Jacket"
-                className="w-full h-full object-cover"
-              />
-            </div>
+            <Image
+              src="/img3.jpg"
+              width={500}
+              height={500}
+              alt="Stylish Jacket"
+              className="w-full h-auto object-cover"
+            />
           </SwiperSlide>
           <SwiperSlide>
-            <div className="relative aspect-square">
-              <Image
-                src="/img4.jpg"
-                width={500}
-                height={500}
-                alt="Trendy Sunglasses"
-                className="w-full h-full object-cover"
-              />
-            </div>
+            <Image
+              src="/img4.jpg"
+              width={500}
+              height={500}
+              alt="Trendy Sunglasses"
+              className="w-full h-auto object-cover"
+            />
           </SwiperSlide>
           <SwiperSlide>
-            <div className="relative aspect-square">
-              <Image
-                src="/img5.jpg"
-                width={500}
-                height={500}
-                alt="Classic Watch"
-                className="w-full h-full object-cover"
-              />
-            </div>
+            <Image
+              src="/img5.jpg"
+              width={500}
+              height={500}
+              alt="Classic Watch"
+              className="w-full h-auto object-cover"
+            />
           </SwiperSlide>
         </Swiper>
       </div>
     </div>
   </div>
 
-  {/* Style pagination dots */}
+  {/* Pagination Dots Styling */}
   <style jsx global>{`
     .swiper-pagination {
       position: absolute !important;
@@ -151,8 +141,6 @@ export default function Home() {
       opacity: 1;
       transform: scale(1.2);
     }
-    
-    /* Mobile specific adjustments */
     @media (max-width: 640px) {
       .swiper-pagination-bullet {
         width: 6px !important;
@@ -162,6 +150,7 @@ export default function Home() {
     }
   `}</style>
 </section>
+
 {/*trusted by section*/}
 
  
